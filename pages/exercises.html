@@ -1,0 +1,98 @@
+<section id="exercises" class="content-section">
+    <h2>Quiz et Exercices</h2>
+
+    <!-- Quiz Area - To be managed by QuizManager.js -->
+    <div id="quiz-container" class="card">
+        <h3>Quiz Interactif</h3>
+        <p>Testez vos connaissances sur les différentes sections.</p>
+        <!-- Quiz questions will be loaded here -->
+        <div id="quiz-questions-area">
+            <!-- Questions injectées par JS -->
+        </div>
+
+        <!-- Quiz Navigation -->
+        <div class="quiz-navigation mt-6">
+            <button id="quiz-prev" class="btn btn-secondary" style="display: none;">Précédent</button>
+            <span id="quiz-progress" class="quiz-progress-indicator"></span>
+            <button id="quiz-next" class="btn btn-secondary" style="display: none;">Suivant</button>
+            <button id="quiz-submit" class="btn btn-primary" style="display: none;">Valider les réponses</button>
+        </div>
+
+        <div id="quiz-results" class="mt-4" style="display: none;">
+            <!-- Results injected by JS -->
+            <button id="quiz-restart" class="btn btn-secondary mt-4" style="display: none;">Recommencer le Quiz</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Exercices pratiques</h3>
+
+        <div class="exercise">
+            <h4>Exercice 1: Chiffrement César</h4>
+            <p>Chiffrez "SECURITE" avec une clé de 5.</p>
+            <details>
+                <summary>Voir la solution</summary>
+                <div class="code-block">
+                    <p>S(18) + 5 = 23 -> X</p>
+                    <p>E(4) + 5 = 9 -> J</p>
+                    <p>C(2) + 5 = 7 -> H</p>
+                    <p>U(20) + 5 = 25 -> Z</p>
+                    <p>R(17) + 5 = 22 -> W</p>
+                    <p>I(8) + 5 = 13 -> N</p>
+                    <p>T(19) + 5 = 24 -> Y</p>
+                    <p>E(4) + 5 = 9 -> J</p>
+                    <p><strong>Résultat : XJHZWNYJ</strong></p>
+                </div>
+            </details>
+        </div>
+
+         <div class="exercise mt-6">
+            <h4>Exercice 2: Analyse Fréquentielle Simple</h4>
+            <p>Le texte suivant a été chiffré avec César. La lettre la plus fréquente est 'L'. Quelle est la clé et le message clair ?</p>
+            <div class="code-block" style="font-size: 1.1em;">
+                <p>XYLLMN HN LCRAN</p>
+            </div>
+            <details>
+                <summary>Voir la solution</summary>
+                <div class="code-block">
+                    <p>En français, E est la lettre la plus fréquente (position 4).</p>
+                    <p>Ici, L (position 11) est la plus fréquente.</p>
+                    <p>Décalage (Clé) = Position(L) - Position(E) = 11 - 4 = 7.</p>
+                    <p>Déchiffrement avec clé 7 :</p>
+                    <p>X(23) - 7 = 16 -> Q</p>
+                    <p>Y(24) - 7 = 17 -> R</p>
+                    <p>L(11) - 7 = 4 -> E</p>
+                    <p>...</p>
+                    <p><strong>Message : REELLE EN CRYPT</strong> (Il manque la fin, mais le principe est là)</p>
+                    <p><strong>Clé : 7</strong></p>
+                </div>
+            </details>
+        </div>
+
+        <div class="exercise mt-6">
+            <h4>Exercice 3: Vigenère</h4>
+            <p>Chiffrez "ATTAQUE" avec la clé "KEY".</p>
+             <details>
+                <summary>Voir la solution</summary>
+                <div class="code-block">
+                    <p>Message: A  T  T  A  Q  U  E</p>
+                    <p>Clé:     K  E  Y  K  E  Y  K</p>
+                    <p>----------------------------</p>
+                    <p>A(0) + K(10) = 10 -> K</p>
+                    <p>T(19) + E(4) = 23 -> X</p>
+                    <p>T(19) + Y(24) = 43 mod 26 = 17 -> R</p>
+                    <p>A(0) + K(10) = 10 -> K</p>
+                    <p>Q(16) + E(4) = 20 -> U</p>
+                    <p>U(20) + Y(24) = 44 mod 26 = 18 -> S</p>
+                    <p>E(4) + K(10) = 14 -> O</p>
+                    <p><strong>Résultat : KXRKUSO</strong></p>
+                </div>
+            </details>
+        </div>
+    </div>
+
+    <div class="card other-exercises">
+        <h3>Autres Exercices</h3>
+        <!-- Additional exercises content -->
+    </div>
+</section> 

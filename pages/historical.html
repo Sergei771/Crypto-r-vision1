@@ -1,0 +1,118 @@
+<section id="historical" class="content-section">
+    <h2>Chiffrements Historiques</h2>
+
+    <div class="card">
+        <h3>Le Chiffre de César</h3>
+        <p>Un des plus anciens (attribué à Jules César) et simples chiffrements par substitution monoalphabétique.</p>
+        <ul>
+            <li><strong>Principe :</strong> Chaque lettre du texte clair est remplacée par une lettre située à un décalage fixe (la clé) plus loin dans l'alphabet.</li>
+            <li><strong>Exemple (Clé = 3) :</strong> A → D, B → E, ..., X → A, Y → B, Z → C.</li>
+            <li><strong>Faiblesse :</strong> Très vulnérable à l'<strong>analyse fréquentielle</strong>. La fréquence des lettres dans le texte chiffré correspond directement à celle du texte clair (décalée). En français, si 'E' est la lettre la plus fréquente, et que 'H' est la plus fréquente dans le message chiffré, la clé est probablement 3 (H - E = 3). Il n'y a aussi que 25 clés possibles à tester (attaque par force brute).</li>
+        </ul>
+
+        <h4>Formule mathématique</h4>
+        <div class="code-block">
+            <p>Chiffrer : C = (P + K) mod 26</p>
+            <p>Déchiffrer : P = (C - K) mod 26</p>
+            <p><small>(P: position lettre claire, C: position lettre chiffrée, K: clé)</small></p>
+        </div>
+
+        <h4>Faiblesses</h4>
+        <ul>
+            <li>Très peu de clés possibles (25)</li>
+            <li>Vulnérable à l'analyse fréquentielle</li>
+            <li>Facile à casser par force brute</li>
+        </ul>
+
+        <h4>Simulateur de chiffre de César</h4>
+        <!-- Alphabet Visualization -->
+        <div class="caesar-visualization mt-4 mb-4">
+            <div class="alphabet-row plain-alphabet"></div>
+            <div class="alphabet-row shifted-alphabet"></div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-4 items-end mt-4">
+            <div>
+                <label for="caesarInput">Message</label>
+                <input type="text" id="caesarInput" placeholder="Entrez votre message">
+            </div>
+            <div>
+                <label for="caesarKey">Clé (1-25)</label>
+                <input type="number" id="caesarKey" min="1" max="25" value="3" class="input-small">
+            </div>
+            <div>
+                <label for="caesarOutput">Résultat</label>
+                <input type="text" id="caesarOutput" readonly>
+            </div>
+        </div>
+        <div class="mt-4 flex-container gap-2">
+            <button id="caesarEncrypt" class="btn btn-primary">Chiffrer</button>
+            <button id="caesarDecrypt" class="btn btn-secondary">Déchiffrer</button>
+        </div>
+        <!-- Note: The JS for this simulator is in CaesarCipher.js and initialized via Navigation.js -->
+    </div>
+
+    <div class="card">
+        <h3>Le Chiffre de Vigenère</h3>
+        <p>Un chiffrement par substitution <strong>polyalphabétique</strong>, longtemps considéré comme indéchiffrable ("le chiffre indéchiffrable"). Il utilise une clé (un mot) pour déterminer le décalage à appliquer.</p>
+        <ul>
+            <li><strong>Principe :</strong> On utilise une table (le carré de Vigenère) et un mot clé. Pour chaque lettre du message clair, on prend la lettre correspondante du mot clé (en répétant le mot clé si nécessaire). Le croisement de la ligne (lettre claire) et de la colonne (lettre clé) dans le carré donne la lettre chiffrée. Ou, plus simplement : C = (P + K) mod 26.</li>
+            <li><strong>Avantage :</strong> Contrairement à César, une même lettre du texte clair peut être chiffrée en différentes lettres dans le texte chiffré, ce qui "aplatit" les fréquences et résiste à l'analyse fréquentielle simple.</li>
+            <li><strong>Faiblesse :</strong> Vulnérable si la longueur de la clé est découverte. Des techniques comme l'<strong>examen de Kasiski</strong> (recherche de séquences répétées dans le chiffré pour deviner la longueur de la clé) ou l'analyse de l'<strong>indice de coïncidence</strong> permettent de déterminer la longueur de la clé. Une fois la longueur connue, on peut séparer le texte chiffré en N sous-textes (où N est la longueur de la clé), chacun étant chiffré par une substitution monoalphabétique (type César), et appliquer l'analyse fréquentielle sur chaque sous-texte.</li>
+        </ul>
+
+        <h4>Table de Vigenère</h4>
+        <p>Un carré de 26x26 alphabets décalés, utilisé pour trouver facilement la lettre chiffrée à l'intersection de la lettre du message (ligne) et de la lettre de la clé (colonne).</p>
+        <!-- Simple table representation, can be enhanced -->
+        <div class="table-container">
+            <table>
+                <tr><th></th><th>A</th><th>B</th><th>C</th><th>...</th><th>Z</th></tr>
+                <tr><th>A</th><td>A</td><td>B</td><td>C</td><td>...</td><td>Z</td></tr>
+                <tr><th>B</th><td>B</td><td>C</td><td>D</td><td>...</td><td>A</td></tr>
+                <tr><th>C</th><td>C</td><td>D</td><td>E</td><td>...</td><td>B</td></tr>
+                <tr><th>...</th><td colspan="5" style="text-align: center;">...</td></tr>
+                <tr><th>Z</th><td>Z</td><td>A</td><td>B</td><td>...</td><td>Y</td></tr>
+            </table>
+        </div>
+
+        <h4>Importance historique</h4>
+        <p>Considéré comme "indéchiffrable" pendant près de 3 siècles jusqu'aux travaux de Kasiski et Babbage au XIXe siècle.</p>
+
+        <!-- Vigenere Simulator -->
+        <div class="mt-6 demo-section">
+            <h4>Simulateur Vigenère</h4>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                 <div>
+                    <label for="vigenereInput">Message :</label>
+                    <textarea id="vigenereInput" rows="3" placeholder="Entrez votre message..."></textarea>
+                 </div>
+                 <div>
+                     <label for="vigenereKey">Clé :</label>
+                     <input type="text" id="vigenereKey" placeholder="Mot clé">
+                 </div>
+                  <div class="md:col-span-2">
+                     <label for="vigenereOutput">Résultat :</label>
+                     <textarea id="vigenereOutput" rows="3" readonly></textarea>
+                 </div>
+             </div>
+             <div class="mt-4 flex-container gap-2">
+                <button id="vigenereEncrypt" class="btn btn-primary">Chiffrer</button>
+                <button id="vigenereDecrypt" class="btn btn-secondary">Déchiffrer</button>
+            </div>
+             <!-- Note: JS for this is in VigenereCipher.js -->
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Autres Chiffres Historiques Notables</h3>
+         <div class="sub-card mt-4">
+            <h4>Scytale (Sparte)</h4>
+            <p>Chiffrement par transposition où une bande de parchemin est enroulée autour d'un bâton (la scytale) de diamètre défini (la clé). Le message est écrit le long du bâton, puis la bande déroulée contient les lettres dans le désordre.</p>
+         </div>
+          <div class="sub-card mt-4">
+            <h4>Machine Enigma (Allemagne, WWII)</h4>
+            <p>Machine électromécanique complexe utilisant une série de rotors et un tableau de connexions pour réaliser un chiffrement par substitution polyalphabétique très sophistiqué pour l'époque. Son déchiffrement par les Alliés (notamment à Bletchley Park) a eu un impact majeur sur le cours de la guerre.</p>
+         </div>
+    </div>
+
+</section> 

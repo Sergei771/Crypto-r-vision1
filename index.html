@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoRevision - Site de révision en cryptographie</title>
+    <!-- Google Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link local CSS files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/dark-theme.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <!-- Placeholder for Font Awesome if needed locally -->
+    <!-- <link rel="stylesheet" href="assets/fontawesome/css/all.min.css"> -->
+    <style>
+        /* Minimal inline styles for initial loading, move rest to CSS files */
+        body { background-color: #121212; color: #f0f0f0; margin: 0; font-family: sans-serif; }
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+        .progress-container { width: 100%; height: 5px; background-color: #1e1e1e; position: fixed; top: 0; left: 0; z-index: 200; }
+        .progress-bar { height: 100%; background: linear-gradient(to right, #d32f2f, #1976d2); width: 0%; transition: width 0.2s ease-out; }
+        .back-to-top { position: fixed; bottom: 30px; right: 30px; background-color: #9e2a2a; color: white; width: 40px; height: 40px; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 100; border: none; }
+        .back-to-top i { border: solid white; border-width: 0 3px 3px 0; display: inline-block; padding: 3px; transform: rotate(-135deg); }
+        #main-header, #main-footer { background-color: #1e1e1e; padding: 1rem 0; }
+        #main-header .main-container, #main-footer .main-container { display: flex; justify-content: space-between; align-items: center; }
+        #main-nav ul { list-style: none; padding: 0; margin: 0; display: flex; gap: 1rem; }
+        #main-nav a { color: #f5f5f5; text-decoration: none; }
+        #main-nav a:hover, #main-nav a.active { color: #d32f2f; }
+        #content { min-height: calc(100vh - 200px); /* Adjust based on header/footer height */ }
+        #mobile-nav-toggle { display: none; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+        /* Basic responsive nav toggle */
+        @media (max-width: 768px) {
+            #mobile-nav-toggle { display: block; }
+            #main-nav { display: none; /* Logic to show/hide needed in JS */ }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <header id="main-header">
+        <div class="main-container header-container">
+            <div class="logo-area">
+                <a href="#home" data-link="home" class="logo-text">CryptoRevision</a>
+            </div>
+            <nav id="main-nav">
+                 <ul>
+                    <li><a href="#home" data-link="home" class="nav-link active">Accueil</a></li>
+                    <li><a href="#fundamentals" data-link="fundamentals" class="nav-link">Fondamentaux</a></li>
+                    <li><a href="#historical" data-link="historical" class="nav-link">Historiques</a></li>
+                    <li><a href="#modern" data-link="modern" class="nav-link">Modernes</a></li>
+                    <li><a href="#attacks" data-link="attacks" class="nav-link">Attaques</a></li>
+                    <li><a href="#applications" data-link="applications" class="nav-link">Applications</a></li>
+                    <li><a href="#exercises" data-link="exercises" class="nav-link">Quiz/Exercices</a></li>
+                    <li><a href="#glossary" data-link="glossary" class="nav-link">Glossaire</a></li>
+                 </ul>
+            </nav>
+            <button id="mobile-nav-toggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main content area where page content will be loaded -->
+    <main id="content" class="main-container">
+        <p>Chargement...</p> <!-- Initial loading message -->
+    </main>
+
+    <footer id="main-footer">
+        <div class="main-container footer-container">
+            <div class="footer-copyright">
+                <p>© 2025 CryptoRevision</p>
+            </div>
+            <div class="footer-links">
+                 <ul>
+                    <li><a href="#glossary" data-link="glossary" class="nav-link">Glossaire</a></li>
+                    <li><a href="#exercises" data-link="exercises" class="nav-link">Outils/Quiz</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" title="Retour en haut">
+        <i></i> <!-- Styled via CSS -->
+    </button>
+
+    <!-- Link main JavaScript file as module -->
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>

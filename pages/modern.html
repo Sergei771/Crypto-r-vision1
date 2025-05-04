@@ -1,0 +1,269 @@
+<section id="modernes" class="content-section">
+    <h2>Algorithmes Modernes</h2>
+
+    <div class="card">
+        <h3>Chiffrements par bloc</h3>
+        <p>Traitent les données par blocs de taille fixe (ex: 128 bits). Nécessitent un mode d'opération pour traiter des messages plus longs et du padding si la taille n'est pas un multiple exact.</p>
+
+        <!-- Tab Structure -->
+        <div class="tabs-container">
+            <div class="algorithm-tabs" id="block-cipher-tabs">
+                <button class="tab active" data-tab-target="#aes-content">AES</button>
+                <button class="tab" data-tab-target="#des-content">DES/3DES</button>
+                <button class="tab" data-tab-target="#modes-content">Modes d'opération</button>
+                <button class="tab" data-tab-target="#padding-content">Padding</button>
+            </div>
+
+            <!-- Tab Content Panes -->
+            <div class="tab-content active" id="aes-content">
+                <h4>AES (Advanced Encryption Standard)</h4>
+                <p>Standard de chiffrement symétrique par bloc le plus utilisé aujourd'hui (NIST FIPS 197, 2001), basé sur l'algorithme Rijndael.</p>
+                <h5>Caractéristiques Clés :</h5>
+                <ul>
+                    <li><strong>Taille de Bloc Fixe :</strong> 128 bits (16 octets).</li>
+                    <li><strong>Tailles de Clé Variables :</strong> 128, 192, ou 256 bits.</li>
+                    <li><strong>Structure :</strong> Réseau de Substitution-Permutation (SPN), traite le bloc entier à chaque round.</li>
+                    <li><strong>Nombre de Rounds Variable :</strong>
+                        <ul>
+                            <li>10 rounds pour clé 128 bits</li>
+                            <li>12 rounds pour clé 192 bits</li>
+                            <li>14 rounds pour clé 256 bits</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h5>Fonctionnement Général (par Round) :</h5>
+                <p>AES traite les données sous forme d'une matrice 4x4 d'octets appelée "état" (state). La clé principale est d'abord étendue via un algorithme appelé <strong>Key Schedule</strong> pour générer des clés de round distinctes pour chaque round. La plupart des rounds appliquent ensuite 4 transformations :</p>
+                <ol>
+                    <li>
+                        <strong>SubBytes (Substitution d'octets) :</strong> Transformation non-linéaire où chaque octet de l'état est remplacé par un autre selon une table de substitution fixe (la S-Box Rijndael), conçue pour résister aux attaques cryptanalytiques différentielles et linéaires. C'est l'étape clé apportant la <strong>confusion</strong> (obscurcir le lien entre clé et texte chiffré).
+                        <div class="sub-card mt-2 mb-2">
+                            <small><strong>Analogie :</strong> Chaque ingrédient (octet) est remplacé par un autre selon une recette fixe (S-Box).</small>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>ShiftRows (Décalage de lignes) :</strong> Transformation linéaire où les octets de chaque ligne de l'état (sauf la première) sont décalés circulairement vers la gauche. Apporte la <strong>diffusion</strong> (répartir l'influence d'un bit clair sur plusieurs bits chiffrés).
+                         <div class="sub-card mt-2 mb-2">
+                             <small><strong>Analogie :</strong> On mélange les ingrédients en décalant les rangées dans le bol.</small>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>MixColumns (Mélange de colonnes) :</strong> Transformation linéaire complexe (multiplication matricielle dans GF(2^8)) qui mélange les octets au sein de chaque colonne. Apporte une diffusion supplémentaire significative.
+                         <div class="sub-card mt-2 mb-2">
+                             <small><strong>Analogie :</strong> On mélange vigoureusement les ingrédients dans chaque section verticale du bol.</small>
+                        </div>
+                    </li>
+                    <li>
+                        <strong>AddRoundKey (Ajout de la clé de round) :</strong> Chaque octet de l'état est combiné par un XOR avec l'octet correspondant de la clé de round générée par le Key Schedule.
+                         <div class="sub-card mt-2 mb-2">
+                             <small><strong>Analogie :</strong> On ajoute une partie de l'assaisonnement secret (clé de round) spécifique à cette étape.</small>
+                        </div>
+                    </li>
+                </ol>
+                <p><strong>Note :</strong> Le premier round est précédé d'un AddRoundKey initial, et le dernier round omet l'étape MixColumns.</p>
+                <p>La sécurité d'AES repose sur le grand nombre de rounds, la robustesse mathématique de chaque étape (notamment la S-Box et MixColumns), et l'impossibilité prouvée (à ce jour) de trouver des raccourcis cryptanalytiques efficaces contre l'algorithme complet. Ses performances sont également excellentes, avec souvent une accélération matérielle (AES-NI) disponible sur les processeurs modernes.</p>
+            </div>
+
+            <div class="tab-content" id="des-content">
+                <h4>DES (Data Encryption Standard)</h4>
+                <p>Ancien standard (1977), aujourd'hui obsolète en raison de sa clé courte.</p>
+                <h5>Caractéristiques :</h5>
+                <ul>
+                    <li>Taille de bloc : 64 bits</li>
+                    <li>Taille de clé : 56 bits effectifs</li>
+                    <li>Structure : Réseau de Feistel</li>
+                    <li>Rounds : 16</li>
+                </ul>
+                 <h4>Triple DES (3DES)</h4>
+                 <p>Solution pour pallier la faiblesse de DES. Applique DES trois fois.</p>
+                 <div class="code-block">
+                    <p>Chiffrement (EDE) : C = E(k3, D(k2, E(k1, P)))</p>
+                    <p>Déchiffrement : P = D(k1, E(k2, D(k3, C)))</p>
+                 </div>
+                 <p>Beaucoup plus lent qu'AES et hérite de la petite taille de bloc de DES.</p>
+            </div>
+
+            <div class="tab-content" id="modes-content">
+                <h4>Modes d'opération</h4>
+                <p>Définissent comment appliquer un chiffrement par bloc à des données de taille arbitraire.</p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="sub-card">
+                        <h5>ECB (Electronic Codebook)</h5>
+                        <p>Chiffre chaque bloc indépendamment. <strong class="text-danger">À ÉVITER !</strong></p>
+                        <p><code>C_i = E(K, P_i)</code></p>
+                        <p class="text-danger">Problème : Blocs clairs identiques = blocs chiffrés identiques (patterns visibles).</p>
+                    </div>
+                    <div class="sub-card">
+                        <h5>CBC (Cipher Block Chaining)</h5>
+                        <p>Chaîne les blocs : chaque bloc clair est XORé avec le bloc chiffré précédent avant chiffrement. Nécessite un IV (Vecteur d'Initialisation).</p>
+                        <p><code>C_i = E(K, P_i ⊕ C_{i-1})</code></p>
+                        <p>Très utilisé, mais sensible aux erreurs de padding.</p>
+                    </div>
+                     <div class="sub-card">
+                        <h5>CTR (Counter)</h5>
+                        <p>Transforme le chiffrement par bloc en chiffrement par flux. Chiffre un compteur incrémenté et XOR le résultat avec le bloc clair. Nécessite un nonce unique.</p>
+                        <p><code>C_i = P_i ⊕ E(K, Nonce || i)</code></p>
+                        <p>Parallélisable, pas besoin de padding.</p>
+                    </div>
+                    <div class="sub-card">
+                        <h5>GCM (Galois/Counter Mode)</h5>
+                        <p>Mode AEAD (Authenticated Encryption with Associated Data). Combine CTR pour la confidentialité et GMAC pour l'authentification/intégrité.</p>
+                        <p>Standard moderne (TLS 1.3, WPA3).</p>
+                    </div>
+                </div>
+
+                <!-- Block Cipher Visualization -->
+                <div class="mt-6 demo-section">
+                    <h4>Visualisation ECB vs CBC</h4>
+                    <div class="mb-4">
+                        <label for="blockVisInput">Texte Clair (Exemple) :</label>
+                        <input type="text" id="blockVisInput" value="ABCDEFGHABCDEFGH">
+                        <button id="blockVisButton" class="btn btn-secondary btn-small">Visualiser</button>
+                        <p><small>Utilise une taille de bloc de 8 caractères pour la démo.</small></p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <h5>Mode ECB</h5>
+                            <p><small>Chaque bloc est chiffré indépendamment avec la même clé. Blocs identiques en clair donnent des blocs identiques en chiffré.</small></p>
+                            <div id="ecbVisualization" class="block-vis-container">
+                                <!-- Visualization generated by JS -->
+                            </div>
+                        </div>
+                        <div>
+                            <h5>Mode CBC</h5>
+                            <p><small>Chaque bloc clair est XORé avec le bloc chiffré précédent avant chiffrement. Nécessite un IV (Vecteur d'Initialisation).</small></p>
+                            <div id="cbcVisualization" class="block-vis-container">
+                                <!-- Visualization generated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="padding-content">
+                <h4>Padding</h4>
+                <p>Nécessaire quand la taille des données n'est pas un multiple de la taille du bloc (sauf pour modes comme CTR).</p>
+                <h5>PKCS#7 (le plus courant)</h5>
+                <p>Ajoute N octets, chacun ayant la valeur N. N est le nombre d'octets manquants pour compléter le bloc.</p>
+                 <div class="code-block">
+                    <p>Exemple (bloc 8 octets) :</p>
+                    <p>Données : [01 02 03 04 05]</p>
+                    <p>Padding : [01 02 03 04 05 <strong>03 03 03</strong>]</p>
+                 </div>
+                 <p>Important: Le padding doit être ajouté même si les données remplissent déjà un bloc complet (un bloc entier de padding est ajouté).</p>
+                 <p class="text-danger">Vulnérabilités : Les erreurs de déchiffrement liées au padding peuvent fuiter des informations (attaques par oracle de padding).</p>
+            </div>
+        </div>
+    </div>
+
+     <div class="card">
+        <h3>RSA et la cryptographie asymétrique</h3>
+        <p>Pionnier et toujours très utilisé des algorithmes à clé publique (asymétrique), inventé en 1977 par Rivest, Shamir et Adleman. Sa sécurité repose sur la <strong>difficulté calculatoire de factoriser</strong> de très grands nombres entiers (le produit de deux nombres premiers).</p>
+
+        <h4>Génération des Clés (Simplifié) :</h4>
+        <ol>
+            <li>Choisir deux grands nombres premiers <strong>p</strong> et <strong>q</strong> (gardés secrets).</li>
+            <li>Calculer <strong>n = p * q</strong>. Ce 'n' est le <i>module</i>, il fait partie de la clé publique et privée. Sa grande taille rend la factorisation difficile.</li>
+            <li>Calculer <strong>φ(n) = (p - 1) * (q - 1)</strong> (indicateur d'Euler). Cette valeur est liée au nombre d'entiers premiers avec n, et reste secrète.</li>
+            <li>Choisir un entier <strong>e</strong> (exposant public) tel que 1 < e < φ(n) et e est premier avec φ(n). Une valeur courante est 65537.</li>
+            <li>Calculer <strong>d</strong> (exposant privé) tel que <strong>(d * e) mod φ(n) = 1</strong>. 'd' est l'inverse modulaire de 'e' modulo φ(n).</li>
+            <li><strong>Clé Publique : (n, e)</strong> - Peut être partagée ouvertement.</li>
+            <li><strong>Clé Privée : (n, d)</strong> - Doit rester absolument secrète !</li>
+        </ol>
+
+        <h4>Chiffrement / Déchiffrement :</h4>
+        <p>Pour chiffrer un message M (représenté comme un nombre inférieur à n) :</p>
+        <div class="code-block">
+            <p>Chiffrement (avec clé publique) : <strong>C = M<sup>e</sup> mod n</strong></p>
+        </div>
+        <p>Pour déchiffrer le message chiffré C :</p>
+        <div class="code-block">
+            <p>Déchiffrement (avec clé privée) : <strong>M = C<sup>d</sup> mod n</strong></p>
+        </div>
+        <p>La magie mathématique (théorème d'Euler et propriétés de l'arithmétique modulaire) garantit que le déchiffrement redonne le message original M.</p>
+
+        <h4>Utilisations Principales :</h4>
+        <ul>
+            <li><strong>Chiffrement de clés symétriques :</strong> RSA est lent. On l'utilise souvent pour chiffrer une clé symétrique (AES par ex.) générée aléatoirement. Cette clé symétrique est ensuite utilisée pour chiffrer le gros volume de données. C'est le principe d'un chiffrement hybride (utilisé dans TLS, PGP).</li>
+            <li><strong>Signatures Numériques :</strong> Pour signer un message M, on calcule son hash H(M), puis on "chiffre" ce hash avec la clé privée : Signature = H(M)<sup>d</sup> mod n. N'importe qui peut vérifier la signature en calculant H(M) et en vérifiant si Signature<sup>e</sup> mod n == H(M).</li>
+        </ul>
+
+         <h4>Limitations et Sécurité :</h4>
+         <ul>
+            <li>Nécessite de très grandes clés (n de 2048 bits ou plus aujourd'hui) pour résister à la factorisation (qui devient plus facile avec le temps et la puissance de calcul).</li>
+            <li>Relativement lent comparé aux algorithmes symétriques.</li>
+            <li>Vulnérable aux futurs ordinateurs quantiques (Algorithme de Shor pour la factorisation).</li>
+            <li><strong>Crucial :</strong> Vulnérable à diverses attaques si utilisé sans <strong>schéma de padding</strong> approprié. Le "textbook RSA" (sans padding) est totalement insécure. Pour le chiffrement, <strong>OAEP (Optimal Asymmetric Encryption Padding)</strong> est recommandé. Pour la signature, <strong>PSS (Probabilistic Signature Scheme)</strong> est recommandé. Ces schémas ajoutent de l'aléa et une structure spécifique pour prévenir les attaques.</li>
+            <li>Peut être vulnérable aux <strong>attaques par canal auxiliaire (side-channel attacks)</strong> si l'implémentation n'est pas prudente (ex: attaques temporelles analysant le temps de déchiffrement, attaques par analyse de consommation électrique).</li>
+         </ul>
+
+         <!-- RSA Demo Placeholder -->
+         <div id="rsa-demo-placeholder" class="mt-6 demo-section">
+             <!-- Content generated by rsa.js -->
+         </div>
+    </div>
+
+    <div class="card">
+        <h3>Fonctions de hachage cryptographiques</h3>
+        <p>Transforment des données de taille arbitraire en une empreinte (digest) de taille fixe.</p>
+        <h4>Propriétés essentielles</h4>
+        <ul>
+            <li><strong>Résistance à la préimage</strong> : Difficile de trouver M si H(M) est connu.</li>
+            <li><strong>Résistance à la seconde préimage</strong> : Étant donné M1, difficile de trouver M2 ≠ M1 tel que H(M1) = H(M2).</li>
+            <li><strong>Résistance aux collisions</strong> : Difficile de trouver M1 ≠ M2 tel que H(M1) = H(M2).</li>
+            <li><strong>Effet avalanche</strong> : Petit changement en entrée → grand changement en sortie.</li>
+        </ul>
+        <h4>Algorithmes courants et Constructions</h4>
+         <div class="grid grid-cols-responsive-small gap-4">
+             <div class="sub-card">
+                 <h5>MD5</h5>
+                 <p><small>128 bits. Construction Merkle–Damgård.</small><br><strong class="text-danger">Compromis (collisions trouvées)</strong></p>
+             </div>
+              <div class="sub-card">
+                 <h5>SHA-1</h5>
+                 <p><small>160 bits. Construction Merkle–Damgård.</small><br><strong class="text-danger">Compromis (collisions trouvées)</strong></p>
+             </div>
+              <div class="sub-card">
+                 <h5>SHA-2 (SHA-256, SHA-512)</h5>
+                 <p><small>224-512 bits. Construction Merkle–Damgård améliorée.</small><br><strong class="text-success">Sécurisé (standard actuel)</strong></p>
+             </div>
+              <div class="sub-card">
+                 <h5>SHA-3 (Keccak)</h5>
+                 <p><small>Standardisé en 2015. Structure interne différente (<strong>construction en éponge / sponge construction</strong>).</small><br><strong class="text-success">Sécurisé</strong></p>
+             </div>
+             <div class="sub-card">
+                 <h5>KDFs (bcrypt, Argon2, PBKDF2)</h5>
+                 <p>Fonctions de Dérivation de Clé spécialisées pour mots de passe. Conçues pour être <strong>lentes et gourmandes en ressources (mémoire, CPU)</strong> avec un <strong>coût ajustable (work factor)</strong> pour ralentir les attaquants par force brute, même avec du matériel spécialisé (GPU, ASIC).</p>
+             </div>
+         </div>
+         <p class="mt-4"><small><strong>Note sur Merkle–Damgård :</strong> C'est une méthode pour construire des fonctions de hachage à partir de fonctions de compression unidirectionnelles. Elle traite l'entrée par blocs séquentiellement. Bien que largement utilisée (MD5, SHA-1, SHA-2), elle présente certaines faiblesses théoriques (ex: attaques par extension de longueur) que la construction en éponge de SHA-3 évite.</small></p>
+         <h4>Salage (Salt)</h4>
+         <p>Valeur aléatoire unique ajoutée à chaque mot de passe <i>avant</i> le hachage. Stocké avec le hash. Empêche les attaques par tables précalculées (rainbow tables).</p>
+         <div class="code-block">
+            <p>Stockage : hash(password + salt), salt</p>
+         </div>
+
+         <!-- Hash Demo -->
+         <div class="mt-6 demo-section">
+             <h4>Démonstration SHA-256</h4>
+             <div class="grid grid-cols-1 gap-4">
+                 <div>
+                     <label for="hashInput">Texte à hacher :</label>
+                     <input type="text" id="hashInput" placeholder="Entrez du texte ici">
+                 </div>
+                 <button id="hashButton" class="btn btn-primary" style="justify-self: start;">Calculer SHA-256</button>
+                 <div>
+                     <label>Hash SHA-256 (Hex) :</label>
+                     <code id="hashOutputSHA256" class="code-block" style="word-break: break-all; min-height: 40px;">...</code>
+                 </div>
+                 <div>
+                     <label title="Hash du texte avec le premier caractère modifié (casse inversée ou espace ajouté)">Effet Avalanche (Texte légèrement modifié) :</label>
+                     <code id="hashOutputSHA256Avalanche" class="code-block" style="word-break: break-all; min-height: 40px;">...</code>
+                 </div>
+             </div>
+             <p class="mt-4"><small>Note: Le hachage est recalculé automatiquement lorsque vous tapez.</small></p>
+         </div>
+         <!-- Note: JS for this is in HashFunctions.js -->
+    </div>
+</section> 

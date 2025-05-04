@@ -1,0 +1,27 @@
+/* Add subtle fade-in animation for content loading */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Apply fade-in to dynamically loaded content */
+#content > section {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Example: Add animation to card hover */
+.card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Example: Button press effect */
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Add transition to progress bar */
+.progress-bar {
+    transition: width 0.3s ease-out;
+} 

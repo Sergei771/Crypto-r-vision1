@@ -1,0 +1,85 @@
+<section id="applications" class="content-section">
+    <h2>Applications Pratiques</h2>
+
+    <div class="card">
+        <h3>Stéganographie</h3>
+        <p>Art de dissimuler un message dans un autre support (image, audio) de façon imperceptible.</p>
+        <h4>Cryptographie vs Stéganographie</h4>
+         <div class="sub-card mt-4 mb-4">
+            <ul>
+                <li><strong>Cryptographie</strong> : Rend le message <i>incompréhensible</i> mais sa présence est connue.</li>
+                <li><strong>Stéganographie</strong> : Cache l'<i>existence</i> même du message.</li>
+                <li>Peuvent être combinées : cacher un message chiffré.</li>
+            </ul>
+        </div>
+        <h4>Techniques courantes</h4>
+        <ul>
+            <li><strong>LSB (Least Significant Bit)</strong> : Modification des bits de poids faible des pixels d'une image.</li>
+            <li>Insertion en fin de fichier (après marqueur EOF).</li>
+        </ul>
+        <h4>Applications</h4>
+        <p>Filigranes numériques (watermarking), communications secrètes.</p>
+    </div>
+
+    <div class="card">
+        <h3>Signatures numériques</h3>
+        <p>Permettent de garantir l'authenticité, l'intégrité et la non-répudiation d'un message.</p>
+        <h4>Principe de fonctionnement</h4>
+        <ol>
+            <li>L'émetteur calcule un hash du message.</li>
+            <li>Il chiffre ce hash avec sa <strong>clé privée</strong> → c'est la signature.</li>
+            <li>Il envoie [message + signature].</li>
+            <li>Le destinataire déchiffre la signature avec la <strong>clé publique</strong> de l'émetteur → hash original.</li>
+            <li>Il calcule lui-même le hash du message reçu.</li>
+            <li>Il compare les deux hashes : s'ils sont identiques, le message est authentique et intègre.</li>
+        </ol>
+        <h4>Algorithmes courants</h4>
+        <p>RSA-PSS, DSA, ECDSA.</p>
+    </div>
+
+    <div class="card">
+        <h3>Protocoles cryptographiques</h3>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="sub-card">
+                <h4>TLS/SSL</h4>
+                <p>Sécurise les communications web (HTTPS). Combine asymétrique (échange de clés, authentification serveur via certificat) et symétrique (chiffrement des données de session).</p>
+            </div>
+             <div class="sub-card">
+                <h4>SSH</h4>
+                <p>Connexions sécurisées à distance (administration serveur). Authentification par mot de passe ou clé publique/privée.</p>
+            </div>
+             <div class="sub-card">
+                <h4>PGP / GPG</h4>
+                <p>Chiffrement et signature d'e-mails et fichiers. Modèle de confiance décentralisé (Web of Trust).</p>
+            </div>
+             <div class="sub-card">
+                <h4>ChaCha20-Poly1305</h4>
+                <p>Chiffrement AEAD (comme AES-GCM). Combinaison du chiffrement par flux ChaCha20 et de l'authentificateur Poly1305. Performant sur mobile.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Conclusion</h3>
+        <p>La cryptographie est un domaine vaste et essentiel qui sous-tend une grande partie de notre infrastructure numérique sécurisée. Comprendre ses principes, ses forces et ses faiblesses est crucial pour tout professionnel de la cybersécurité.</p>
+    </div>
+
+    <!-- Added Steganography Section -->
+    <div class="card">
+        <h3>Stéganographie (Dissimulation d'Information)</h3>
+        <p>Contrairement au chiffrement qui rend un message illisible, la stéganographie vise à cacher l'existence même de la communication en dissimulant l'information secrète dans un autre support (texte, image, audio, vidéo).</p>
+        <h4>Exemple : Least Significant Bit (LSB)</h4>
+        <p>Une technique courante consiste à modifier le bit de poids le plus faible (Least Significant Bit - LSB) des pixels d'une image. Chaque octet de pixel (ex: pour une couleur Rouge, Vert, Bleu) peut ainsi stocker 1 bit de l'information secrète par composante de couleur. La modification est souvent visuellement indétectable pour l'œil humain.</p>
+        <ul>
+            <li><strong>Avantages :</strong> Difficile à détecter si bien fait.</li>
+            <li><strong>Inconvénients :</strong> Faible capacité (peu de données cachées), sensible à la compression d'image ou aux manipulations.</li>
+        </ul>
+
+        <!-- Placeholder for Steganography Demo -->
+        <div id="steganography-demo-placeholder" class="mt-6 demo-section">
+             <h4>Démonstration Stéganographie (Prochainement)</h4>
+             <!-- JS will inject content here -->
+        </div>
+    </div>
+
+</section> 

@@ -1,0 +1,964 @@
+/* --- Global Styles & Typography --- */
+:root {
+    /* Base font size for rem calculation */
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Inter', sans-serif; /* Uses --font-primary implicitly from dark-theme.css */
+    margin: 0;
+    padding-top: var(--header-height);
+    padding-bottom: var(--footer-height);
+    background-color: var(--background-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+}
+
+.content-section {
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.content-section:last-child {
+    margin-bottom: 0;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.8em;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text-primary); /* Correct variable */
+}
+
+h2 {
+    font-size: 2.2rem;
+    border-bottom: 1px solid var(--border-color); /* Correct variable */
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.7rem;
+}
+
+h4 {
+    font-size: 1.3rem;
+    color: var(--text-secondary); /* Correct variable */
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary); /* Correct variable */
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 1.2em;
+    max-width: 75ch;
+}
+
+/* Links */
+a {
+    color: var(--accent-color); /* Correct variable */
+    text-decoration: none;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+a:hover,
+a:focus {
+    color: var(--accent-color-hover); /* Correct variable */
+    text-decoration: underline;
+    outline: none;
+}
+
+/* Focus styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--accent-color); /* Correct variable */
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px var(--background-primary), 0 0 0 5px var(--accent-color); /* Correct variables */
+}
+
+/* Lists */
+ul, ol {
+    margin-bottom: 1em;
+    padding-left: 1.5em;
+}
+
+li {
+    margin-bottom: 0.5em;
+}
+
+/* Horizontal Rule */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: var(--border-color); /* Correct variable */
+    margin: 2rem 0;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.text-danger { color: var(--danger-color); } /* Correct variable */
+.text-success { color: var(--success-color); } /* Correct variable */
+.text-warning { color: var(--warning-color); } /* Correct variable */
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-6 { margin-top: 2.5rem; }
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mb-6 { margin-bottom: 2.5rem; }
+
+.flex-container {
+    display: flex;
+    align-items: center;
+}
+
+.gap-1 { gap: 0.25rem; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+
+/* Grid utility */
+.grid {
+    display: grid;
+}
+
+/* Responsive grid helpers */
+.md\:grid-cols-2 {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.grid-cols-responsive-small {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.items-end { align-items: end; }
+
+
+/* --- Header --- */
+#main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--background-primary); /* Correct variable */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-color); /* Correct variable */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo a {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary); /* Correct variable */
+    text-decoration: none;
+}
+
+#main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+#main-nav li {
+    margin-left: 1.5rem;
+    margin-bottom: 0;
+}
+
+#main-nav a {
+    text-decoration: none;
+    color: var(--text-secondary); /* Correct variable */
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.2s ease-in-out;
+}
+
+#main-nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--accent-color); /* Correct variable */
+    transition: width 0.3s ease-in-out;
+}
+
+#main-nav a:hover,
+#main-nav a:focus,
+#main-nav a.active {
+    color: var(--text-primary); /* Correct variable */
+}
+
+#main-nav a:hover::after,
+#main-nav a:focus::after,
+#main-nav a.active::after {
+    width: 100%;
+}
+
+/* --- Footer --- */
+#main-footer {
+    background-color: var(--background-primary); /* Correct variable */
+    color: var(--text-secondary); /* Correct variable */
+    padding: 1.5rem 2rem;
+    border-top: 1px solid var(--border-color); /* Correct variable */
+    font-size: 0.9rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--footer-height);
+}
+
+#main-footer p {
+    margin: 0;
+}
+
+#main-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+#main-footer li {
+    margin-left: 1rem;
+    margin-bottom: 0;
+}
+
+#main-footer a {
+    color: var(--text-secondary); /* Correct variable */
+    transition: color 0.2s ease-in-out;
+}
+
+#main-footer a:hover,
+#main-footer a:focus {
+    color: var(--text-primary); /* Correct variable */
+    text-decoration: underline;
+}
+
+/* --- Components --- */
+
+/* Cards */
+.card {
+    background-color: var(--background-secondary); /* Correct variable */
+    border: 1px solid var(--border-color); /* Correct variable */
+    border-radius: 8px;
+    padding: 1.8rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--accent-color); /* Correct variable */
+    font-size: 1.5rem;
+}
+
+.sub-card {
+    background-color: var(--background-primary); /* Correct variable */
+    border: 1px solid var(--border-color); /* Correct variable */
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.sub-card small {
+    color: var(--text-secondary); /* Correct variable */
+    display: block;
+    line-height: 1.4;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out, box-shadow 0.1s ease-in-out;
+    white-space: nowrap;
+}
+
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: var(--accent-color); /* Correct variable */
+    color: #ffffff;
+    border-color: var(--accent-color); /* Correct variable */
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--accent-color-hover); /* Correct variable */
+    border-color: var(--accent-color-hover); /* Correct variable */
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--accent-color); /* Correct variable */
+    border-color: var(--accent-color); /* Correct variable */
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: rgba(0, 123, 255, 0.1); /* Consider var(--accent-color) with alpha */
+    color: var(--accent-color-hover); /* Correct variable */
+    border-color: var(--accent-color-hover); /* Correct variable */
+    text-decoration: none;
+}
+
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+}
+
+/* Forms & Inputs */
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-secondary); /* Correct variable */
+    font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color); /* Correct variable */
+    border-radius: 6px;
+    background-color: var(--background-secondary); /* Correct variable */
+    color: var(--text-primary); /* Correct variable */
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--accent-color); /* Correct variable */
+    background-color: var(--background-tertiary); /* Correct variable */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15); /* Consider var(--accent-color) with alpha */
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--text-secondary); /* Correct variable */
+    opacity: 0.7;
+}
+
+input[type="file"] {
+    padding: 0.5rem;
+}
+
+input[type="number"].input-small {
+    width: auto;
+    max-width: 100px;
+    padding: 0.5rem 0.75rem;
+}
+
+/* --- Code Blocks --- */
+.code-block {
+    background-color: var(--code-background); /* Correct variable */
+    color: var(--code-text-color); /* Correct variable */
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-family: var(--font-code); /* Use var */
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color); /* Correct variable */
+}
+
+.code-block p {
+    margin-bottom: 0.5em;
+    max-width: none;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+code {
+    font-family: var(--font-code); /* Use var */
+    background-color: rgba(255, 255, 255, 0.08); /* Maybe var(--background-tertiary)? */
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    color: var(--code-text-color); /* Correct variable */
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    font-size: inherit;
+}
+
+/* Blockquotes */
+.quote-block {
+    border-left: 4px solid var(--accent-color); /* Correct variable */
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    background-color: var(--background-secondary); /* Correct variable */
+    color: var(--text-secondary); /* Correct variable */
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+}
+
+.quote-block p {
+    margin-bottom: 0;
+    max-width: none;
+}
+
+/* --- Tables --- */
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 1.5rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color); /* Correct variable */
+}
+
+thead {
+    background-color: var(--background-tertiary); /* Correct variable */
+    color: var(--text-primary); /* Correct variable */
+    font-weight: 600;
+}
+
+th, td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color); /* Correct variable */
+}
+
+tbody tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.02); /* Consider a var */
+}
+
+tbody tr:hover {
+    background-color: var(--background-tertiary); /* Use tertiary for consistency */
+}
+
+/* --- Progress Bar & Back-to-Top --- */
+#progress-bar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    height: 4px;
+    background-color: var(--accent-color); /* Correct variable */
+    width: 0%;
+    z-index: 1001;
+    transition: width 0.1s linear;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--accent-color); /* Correct variable */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    line-height: 45px;
+    text-align: center;
+    cursor: pointer;
+    display: none;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease-in-out, opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+#back-to-top:hover {
+    background-color: var(--accent-color-hover); /* Correct variable */
+}
+
+#back-to-top.show {
+    display: block;
+    opacity: 0.8;
+}
+
+#back-to-top.show:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+/* --- Tabs --- */
+.tabs-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.algorithm-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color); /* Correct variable */
+    margin-bottom: 1.5rem;
+}
+
+.tab {
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary); /* Correct variable */
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: -1px;
+    transition: color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.tab:hover {
+    color: var(--text-primary); /* Correct variable */
+}
+
+.tab.active {
+    color: var(--accent-color); /* Correct variable */
+    border-bottom-color: var(--accent-color); /* Correct variable */
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+    padding: 1rem 0;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* --- Timeline --- */
+.timeline {
+    position: relative;
+    padding: 1rem 0;
+    margin-left: 1rem;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--border-color); /* Correct variable */
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--accent-color); /* Correct variable */
+    border: 2px solid var(--background-secondary); /* Correct variable */
+}
+
+.timeline-item h4 {
+    margin-top: 0;
+    margin-bottom: 0.3rem;
+    font-size: 1.1rem;
+    color: var(--text-primary); /* Correct variable */
+    font-weight: 600;
+}
+
+.timeline-item p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary); /* Correct variable */
+}
+
+/* --- Glossary --- */
+dl {
+    margin-top: 1rem;
+}
+
+dt {
+    font-weight: 600;
+    color: var(--text-primary); /* Correct variable */
+    margin-top: 1rem;
+}
+
+dd {
+    margin-left: 1.5em;
+    margin-bottom: 1rem;
+    color: var(--text-secondary); /* Correct variable */
+}
+
+/* --- Algorithm Demos / Visualizations --- */
+.demo-section {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--border-color); /* Correct variable */
+}
+
+.demo-section h4 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary); /* Correct variable */
+}
+
+/* Caesar Visualization */
+.caesar-visualization {
+    font-family: var(--font-code); /* Use var */
+    margin-bottom: 1.5rem;
+    background-color: var(--code-background); /* Correct variable */
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color); /* Correct variable */
+    overflow-x: auto;
+}
+
+.alphabet-row {
+    display: flex;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+}
+
+.alphabet-row span {
+    display: inline-block;
+    width: 25px;
+    text-align: center;
+    margin-right: 2px;
+    padding: 0.2rem;
+    border-radius: 3px;
+}
+
+.plain-alphabet span {
+    background-color: var(--background-secondary); /* Correct variable */
+    color: var(--text-primary); /* Correct variable */
+}
+
+.shifted-alphabet span {
+    background-color: var(--accent-color); /* Correct variable */
+    color: white;
+}
+
+/* Block Cipher Visualization */
+.block-vis-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 1rem;
+    background-color: var(--code-background); /* Correct variable */
+    border-radius: 6px;
+    border: 1px solid var(--border-color); /* Correct variable */
+    min-height: 50px;
+}
+
+.block {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.2);
+    color: #fff;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+/* Hash Demo */
+#hashOutputSHA256,
+#hashOutputSHA256Avalanche {
+    word-break: break-all;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    /* Apply code-block styles */
+    background-color: var(--code-background);
+    color: var(--code-text-color);
+    padding: 1rem 1.5rem;
+    border-radius: 6px;
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-color);
+}
+
+/* Steganography Demo */
+.steganography-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.steganography-container canvas {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--border-color); /* Correct variable */
+    background-color: #fff;
+}
+
+.steganography-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* --- Quiz Styles --- */
+#quiz-container {
+    background-color: var(--background-secondary); /* Use secondary BG for quiz container */
+    padding: 1.5rem;
+    border: 1px solid var(--border-color-strong); /* Correct variable */
+    border-radius: 8px;
+}
+
+#quiz-question {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+#quiz-options label {
+    display: block;
+    background-color: var(--background-secondary); /* Correct variable */
+    padding: 0.8rem 1.2rem;
+    margin-bottom: 0.8rem;
+    border: 1px solid var(--border-color); /* Correct variable */
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    font-weight: normal;
+    color: var(--text-primary); /* Correct variable */
+}
+
+#quiz-options input[type="radio"] {
+    margin-right: 0.8rem;
+    accent-color: var(--accent-color); /* Correct variable */
+    width: auto;
+    margin-bottom: 0;
+}
+
+#quiz-options label:hover {
+    background-color: var(--background-tertiary); /* Correct variable */
+    border-color: var(--border-color-strong); /* Correct variable */
+}
+
+#quiz-options input[type="radio"]:checked + span {
+    font-weight: 600;
+}
+
+#quiz-feedback {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+#quiz-feedback.correct {
+    background-color: rgba(40, 167, 69, 0.15);
+    border: 1px solid var(--success-color); /* Correct variable */
+    color: var(--success-color); /* Correct variable */
+}
+
+#quiz-feedback.incorrect {
+    background-color: rgba(220, 53, 69, 0.1);
+    border: 1px solid var(--danger-color); /* Correct variable */
+    color: var(--danger-color); /* Correct variable */
+}
+
+#quiz-navigation {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color); /* Add border */
+    padding-top: 1.5rem; /* Add padding */
+}
+
+#quiz-progress {
+    font-size: 0.9rem;
+    color: var(--text-secondary); /* Correct variable */
+}
+
+#quiz-results {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+#quiz-results h4 {
+    color: var(--text-primary); /* Correct variable */
+}
+
+#quiz-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-color); /* Correct variable */
+    margin-bottom: 1.5rem;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    :root {
+        font-size: 15px;
+    }
+
+    main {
+        padding: 1rem 0.8rem;
+    }
+
+    #main-header {
+        padding: 0 1rem;
+    }
+
+    /* Mobile Nav styles */
+    #mobile-nav-toggle {
+        display: block;
+    }
+    #main-nav {
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        width: 100%;
+        background-color: var(--background-secondary); /* Correct variable */
+        border-top: 1px solid var(--border-color); /* Correct variable */
+        display: none;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    #main-nav.open {
+        display: block;
+    }
+    #main-nav ul {
+        flex-direction: column;
+        padding: 0.5rem 0;
+        gap: 0;
+        align-items: stretch;
+    }
+    #main-nav li {
+        margin-left: 0; /* Reset margin */
+        text-align: center;
+        border-bottom: 1px solid var(--border-color); /* Correct variable */
+    }
+    #main-nav li:last-child {
+        border-bottom: none;
+    }
+    #main-nav a {
+        display: block;
+        padding: 1rem 0;
+        width: 100%;
+        color: var(--text-primary); /* Correct variable */
+    }
+    #main-nav a::after {
+         display: none;
+    }
+    #main-nav a:hover,
+    #main-nav a:focus,
+    #main-nav a.active {
+        background-color: var(--background-tertiary); /* Correct variable */
+    }
+
+    #main-footer {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    #main-footer ul {
+        margin-top: 0.5rem;
+        justify-content: center; /* Center links on mobile */
+    }
+
+    .grid-cols-2,
+    .md\:grid-cols-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .steganography-container {
+        grid-template-columns: 1fr;
+    }
+
+    /* Adjust Quiz padding on mobile */
+    #quiz-container {
+        padding: 1rem;
+    }
+    #quiz-options label {
+        padding: 0.7rem 1rem;
+    }
+}

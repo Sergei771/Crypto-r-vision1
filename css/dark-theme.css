@@ -1,0 +1,72 @@
+:root {
+    /* Dark Theme Variables - Sober & Minimalist */
+
+    /* Backgrounds */
+    --primary-bg: #080808;       /* Very dark grey / near black */
+    --secondary-bg: #121212;     /* Slightly lighter dark grey for header/footer */
+    --card-bg: #1A1A1A;          /* Card background */
+    --code-bg: #1E1E1E;          /* Code block background - slightly different */
+
+    /* Text */
+    --primary-text: #E0E0E0;     /* Light grey for main text */
+    --secondary-text: #A0A0A0;   /* Medium grey for secondary info */
+    --heading-text: #FFFFFF;     /* White for main headings */
+    --link-text: #C0C0C0;        /* Slightly brighter grey for links */
+    --link-hover-text: #FFFFFF;  /* White on link hover */
+
+    /* Accent (Subtle) */
+    --accent-blue: #6C82CF;      /* Muted Blue - use sparingly */
+    --accent-red-error: #FF5C5C; /* Red for errors - more muted */
+    --accent-green-success: #50C878; /* Emerald green for success */
+
+    /* Borders */
+    --border-color: #444;          /* Softer border */
+    --border-color-strong: #666;   /* For stronger divisions if needed */
+
+    /* Fonts */
+    --font-primary: 'Inter', sans-serif;
+    --font-code: 'Fira Code', monospace; /* Keep Fira Code for code */
+    --font-heading: var(--font-primary); /* Use primary font for headings too */
+    --font-body: var(--font-primary);
+
+    /* Shadows */
+    --shadow-color-soft: rgba(0, 0, 0, 0.2);
+    --header-shadow: 0 1px 3px var(--shadow-color-soft);
+    /* Remove card shadows for minimalist look, use borders/bg diff instead */
+
+    /* Layout */
+    --header-height: 60px; /* Slightly shorter */
+    --footer-height: 70px;
+
+    /* Dark Theme Palette - Refined */
+    --background-primary: #1a1a1a; /* Slightly lighter than pure black */
+    --background-secondary: #242424; /* For cards, inputs */
+    --background-tertiary: #303030; /* Subtle hover/active states */
+
+    --text-primary: #e0e0e0;       /* Main text - slightly off-white */
+    --text-secondary: #b0b0b0;     /* Subdued text, placeholders */
+    --text-accent: var(--accent-color); /* Text on accent backgrounds */
+
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+
+    /* Code Blocks */
+    --code-background: #2c2c2c;
+    --code-text-color: #f0f0f0;
+
+    /* Accent Colors */
+    --accent-color: #007bff;       /* A clear, readable blue */
+    --accent-color-hover: #0056b3; /* Darker blue for hover */
+    --accent-color-secondary: #6c757d; /* Muted grey for secondary actions */
+}
+
+/* Apply base font to body */
+body {
+    font-family: var(--font-body);
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    line-height: 1.6;
+    margin: 0;
+    padding-top: var(--header-height); /* Prevent content overlap */
+} 

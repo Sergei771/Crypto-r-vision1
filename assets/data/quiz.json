@@ -1,0 +1,413 @@
+{
+  "quizTitle": "Quiz Général de Cryptographie",
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Quel principe fondamental stipule que la sécurité d'un système cryptographique doit reposer sur le secret de la clé, et non de l'algorithme ?",
+      "options": {
+        "a": "Le principe de Kerckhoffs",
+        "b": "La loi de Moore",
+        "c": "Le théorème de Shannon",
+        "d": "Le paradoxe de Barbershop"
+      },
+      "correctAnswer": "a",
+      "explanation": "Le principe de Kerckhoffs est un fondement de la cryptographie moderne."
+    },
+    {
+      "id": "q2",
+      "question": "Quel type de chiffrement utilise la même clé pour chiffrer et déchiffrer ?",
+      "options": {
+        "a": "Asymétrique",
+        "b": "Symétrique",
+        "c": "Quantique",
+        "d": "Homomorphique"
+      },
+      "correctAnswer": "b",
+      "explanation": "Le chiffrement symétrique (ou à clé secrète) utilise une seule clé partagée."
+    },
+    {
+      "id": "q3",
+      "question": "Quel algorithme est le standard actuel pour le chiffrement symétrique par bloc (NIST FIPS 197) ?",
+      "options": {
+        "a": "DES",
+        "b": "RSA",
+        "c": "AES",
+        "d": "MD5"
+      },
+      "correctAnswer": "c",
+      "explanation": "AES (Advanced Encryption Standard) a remplacé DES et est largement utilisé."
+    },
+    {
+        "id": "q4",
+        "question": "Quelle est la principale faiblesse du mode d'opération ECB (Electronic Codebook) ?",
+        "options": {
+          "a": "Il est très lent.",
+          "b": "Il nécessite un vecteur d'initialisation (IV).",
+          "c": "Des blocs de texte clair identiques produisent des blocs chiffrés identiques.",
+          "d": "Il n'est pas parallélisable."
+        },
+        "correctAnswer": "c",
+        "explanation": "Le manque de diffusion entre les blocs en ECB révèle les motifs du texte clair."
+      },
+      {
+        "id": "q5",
+        "question": "Quel composant est nécessaire pour le mode CBC (Cipher Block Chaining) et doit être unique mais pas nécessairement secret ?",
+        "options": {
+          "a": "Une clé publique",
+          "b": "Un sel (salt)",
+          "c": "Un vecteur d'initialisation (IV)",
+          "d": "Un padding PKCS#7"
+        },
+        "correctAnswer": "c",
+        "explanation": "L'IV est combiné avec le premier bloc de texte clair en mode CBC pour assurer l'unicité du chiffrement."
+      },
+      {
+        "id": "q6",
+        "question": "Quelle propriété d'une fonction de hachage cryptographique garantit qu'il est difficile de trouver un message M à partir de son empreinte H(M) ?",
+        "options": {
+          "a": "Résistance aux collisions",
+          "b": "Résistance à la seconde préimage",
+          "c": "Résistance à la préimage",
+          "d": "Effet avalanche"
+        },
+        "correctAnswer": "c",
+        "explanation": "La résistance à la préimage (preimage resistance) est fondamentale pour la sécurité des hachages."
+      },
+      {
+        "id": "q7",
+        "question": "Quel algorithme asymétrique populaire base sa sécurité sur la difficulté de factoriser de grands nombres premiers ?",
+        "options": {
+          "a": "AES",
+          "b": "ECC (Elliptic Curve Cryptography)",
+          "c": "Diffie-Hellman",
+          "d": "RSA"
+        },
+        "correctAnswer": "d",
+        "explanation": "La sécurité de RSA repose directement sur la difficulté du problème de factorisation."
+      },
+      {
+        "id": "q8",
+        "question": "À quoi sert principalement le 'salage' (salting) lors du hachage de mots de passe ?",
+        "options": {
+          "a": "À rendre le hachage plus rapide.",
+          "b": "À garantir la confidentialité du mot de passe original.",
+          "c": "À empêcher les attaques par tables précalculées (rainbow tables).",
+          "d": "À vérifier l'intégrité du hash stocké."
+        },
+        "correctAnswer": "c",
+        "explanation": "Le sel unique par utilisateur rend les tables précalculées génériques inutiles."
+      },
+      {
+        "id": "q9",
+        "question": "Quel mécanisme utilise la clé privée du signataire pour prouver l'authenticité et l'intégrité d'un message ?",
+        "options": {
+          "a": "Un MAC (Message Authentication Code)",
+          "b": "Une signature numérique",
+          "c": "Un chiffrement symétrique",
+          "d": "Un nonce"
+        },
+        "correctAnswer": "b",
+        "explanation": "La signature numérique lie l'identité (via la clé publique) à l'intégrité du message."
+      },
+      {
+        "id": "q10",
+        "question": "Dans le chiffrement de César, si la clé est 3, comment 'BONJOUR' serait-il chiffré ?",
+        "options": {
+          "a": "CPNKPVT",
+          "b": "ERQMRXU",
+          "c": "FSPNRYV",
+          "d": "ABMGNTQ"
+        },
+        "correctAnswer": "b",
+        "explanation": "Chaque lettre est décalée de 3 positions : B+3=E, O+3=R, N+3=Q, J+3=M, O+3=R, U+3=X, R+3=U."
+      },
+      {
+        "id": "q11",
+        "question": "Quel est le principal avantage du mode CTR (Counter) par rapport au mode CBC ?",
+        "options": {
+          "a": "Il ne nécessite pas de clé secrète.",
+          "b": "Il est résistant aux attaques par analyse fréquentielle.",
+          "c": "Il peut être parallélisé pour le chiffrement et le déchiffrement.",
+          "d": "Il intègre nativement l'authentification."
+        },
+        "correctAnswer": "c",
+        "explanation": "Le mode CTR transforme le chiffrement par bloc en chiffrement par flux, permettant le calcul parallèle sur les compteurs."
+      },
+      {
+        "id": "q12",
+        "question": "Qu'est-ce qu'une attaque par 'oracle de padding' exploite ?",
+        "options": {
+          "a": "Une faiblesse dans la génération des clés RSA.",
+          "b": "Des erreurs spécifiques retournées lors du déchiffrement en fonction de la validité du padding.",
+          "c": "La prédictibilité du vecteur d'initialisation (IV) en mode CBC.",
+          "d": "Des collisions dans les fonctions de hachage."
+        },
+        "correctAnswer": "b",
+        "explanation": "Ces attaques permettent de déchiffrer des données en observant comment le serveur réagit aux messages avec un padding invalide."
+      },
+       {
+        "id": "q13",
+        "question": "Quel type d'attaque tente de trouver deux messages distincts M1 et M2 ayant la même empreinte H(M1) = H(M2) ?",
+        "options": {
+          "a": "Attaque par préimage",
+          "b": "Attaque par seconde préimage",
+          "c": "Attaque par collision",
+          "d": "Attaque par force brute sur la clé"
+        },
+        "correctAnswer": "c",
+        "explanation": "Trouver une collision est généralement plus facile que trouver une préimage, grâce au paradoxe des anniversaires."
+      },
+      {
+        "id": "q14",
+        "question": "Dans une infrastructure à clés publiques (PKI), quel document lie une clé publique à une identité ?",
+        "options": {
+          "a": "Un certificat numérique (X.509)",
+          "b": "Une clé privée",
+          "c": "Une liste de révocation de certificats (CRL)",
+          "d": "Un accord de niveau de service (SLA)"
+        },
+        "correctAnswer": "a",
+        "explanation": "Le certificat numérique est signé par une Autorité de Certification (AC) pour attester du lien entre clé publique et identité."
+      },
+      {
+        "id": "q15",
+        "question": "Quelle technique vise à cacher l'existence même d'un message secret dans un autre support (ex: image) ?",
+        "options": {
+          "a": "Cryptanalyse",
+          "b": "Chiffrement",
+          "c": "Stéganographie",
+          "d": "Authentification"
+        },
+        "correctAnswer": "c",
+        "explanation": "La stéganographie cache le message, tandis que le chiffrement le rend illisible."
+      },
+      {
+        "id": "q16",
+        "question": "Quel algorithme d'échange de clés permet à deux parties de s'accorder sur une clé secrète partagée via un canal public sans l'échanger directement ?",
+        "options": {
+          "a": "RSA",
+          "b": "AES",
+          "c": "Diffie-Hellman",
+          "d": "SHA-256"
+        },
+        "correctAnswer": "c",
+        "explanation": "Diffie-Hellman est un protocole fondamental pour l'établissement de clés sécurisées."
+      },
+      {
+        "id": "q17",
+        "question": "Laquelle de ces fonctions de hachage est considérée comme obsolète et vulnérable aux collisions ?",
+        "options": {
+          "a": "SHA-3",
+          "b": "BLAKE2",
+          "c": "SHA-256",
+          "d": "MD5"
+        },
+        "correctAnswer": "d",
+        "explanation": "Des collisions pour MD5 ont été démontrées, le rendant impropre à la plupart des usages cryptographiques modernes."
+      },
+      {
+        "id": "q18",
+        "question": "Qu'est-ce qu'un MAC (Message Authentication Code) garantit ?",
+        "options": {
+          "a": "Uniquement la confidentialité du message.",
+          "b": "Uniquement l'intégrité du message.",
+          "c": "L'intégrité du message ET l'authenticité de l'expéditeur (via une clé partagée).",
+          "d": "La non-répudiation de l'expéditeur."
+        },
+        "correctAnswer": "c",
+        "explanation": "Un MAC, comme HMAC, utilise une clé secrète partagée pour vérifier à la fois l'intégrité et l'origine."
+      },
+      {
+        "id": "q19",
+        "question": "Quelle est la taille de bloc standard de l'algorithme AES ?",
+        "options": {
+          "a": "64 bits",
+          "b": "128 bits",
+          "c": "256 bits",
+          "d": "Variable (selon la clé)"
+        },
+        "correctAnswer": "b",
+        "explanation": "AES opère toujours sur des blocs de 128 bits, indépendamment de la taille de la clé (128, 192 ou 256 bits)."
+      },
+      {
+        "id": "q20",
+        "question": "Quel terme désigne l'étude des méthodes pour 'casser' les chiffrements ?",
+        "options": {
+          "a": "Cryptographie",
+          "b": "Stéganographie",
+          "c": "Cryptanalyse",
+          "d": "Cryptologie"
+        },
+        "correctAnswer": "c",
+        "explanation": "La cryptanalyse est la discipline qui s'attaque à la sécurité des systèmes cryptographiques."
+      },
+      {
+        "id": "q21",
+        "question": "Quel objectif de sécurité garantit qu'une information n'a pas été modifiée ?",
+        "options": {
+          "a": "Confidentialité",
+          "b": "Intégrité",
+          "c": "Disponibilité",
+          "d": "Authentification"
+        },
+        "correctAnswer": "b",
+        "explanation": "L'intégrité assure que les données sont exactes et n'ont pas été altérées."
+      },
+      {
+        "id": "q22",
+        "question": "Quelle technique d'attaque exploite la répétition de séquences dans un texte chiffré avec Vigenère pour deviner la longueur de la clé ?",
+        "options": {
+          "a": "Analyse fréquentielle",
+          "b": "Attaque par force brute",
+          "c": "Examen de Kasiski",
+          "d": "Attaque par canal auxiliaire"
+        },
+        "correctAnswer": "c",
+        "explanation": "L'examen de Kasiski recherche des blocs de lettres répétés pour estimer la longueur de la clé de Vigenère."
+      },
+      {
+        "id": "q23",
+        "question": "En RSA, quelle partie de la paire de clés est gardée secrète ?",
+        "options": {
+          "a": "Le module n",
+          "b": "L'exposant public e",
+          "c": "L'exposant privé d",
+          "d": "La fonction Phi(n)"
+        },
+        "correctAnswer": "c",
+        "explanation": "L'exposant privé 'd' est crucial pour le déchiffrement et doit rester secret."
+      },
+      {
+        "id": "q24",
+        "question": "Pourquoi le 'textbook RSA' (sans padding) est-il considéré comme insécure ?",
+        "options": {
+          "a": "Il est trop lent.",
+          "b": "Il est vulnérable aux attaques par texte clair choisi et autres manipulations.",
+          "c": "Il ne permet pas le chiffrement.",
+          "d": "La clé publique est trop facile à deviner."
+        },
+        "correctAnswer": "b",
+        "explanation": "Le RSA sans padding manque de propriétés aléatoires et est vulnérable à plusieurs attaques cryptanalytiques."
+      },
+      {
+        "id": "q25",
+        "question": "Quelle construction de fonction de hachage, utilisée par SHA-3, est résistante aux attaques par extension de longueur ?",
+        "options": {
+          "a": "Merkle-Damgård",
+          "b": "Réseau de Feistel",
+          "c": "Construction en éponge (Sponge construction)",
+          "d": "Réseau de Substitution-Permutation (SPN)"
+        },
+        "correctAnswer": "c",
+        "explanation": "La construction en éponge (Keccak/SHA-3) a une structure interne différente qui prévient les attaques par extension de longueur."
+      },
+      {
+        "id": "q26",
+        "question": "Quel est le but principal d'une fonction de dérivation de clé (KDF) comme bcrypt ou Argon2 ?",
+        "options": {
+          "a": "Chiffrer rapidement de grandes quantités de données.",
+          "b": "Générer des clés publiques RSA.",
+          "c": "Hacher les mots de passe de manière lente et gourmande en ressources pour ralentir les attaques par force brute.",
+          "d": "Signer numériquement des documents."
+        },
+        "correctAnswer": "c",
+        "explanation": "Les KDFs sont conçues pour rendre le cassage de mots de passe par force brute coûteux en temps et en ressources."
+      },
+      {
+        "id": "q27",
+        "question": "Quelle attaque consiste à intercepter et renvoyer une communication valide ultérieurement ?",
+        "options": {
+          "a": "Attaque par rejeu (Replay Attack)",
+          "b": "Attaque de l'homme du milieu (MitM)",
+          "c": "Attaque par déni de service (DoS)",
+          "d": "Attaque par force brute"
+        },
+        "correctAnswer": "a",
+        "explanation": "L'attaque par rejeu réutilise des données légitimes capturées précédemment."
+      },
+      {
+        "id": "q28",
+        "question": "Quel type de chiffrement est généralement utilisé pour échanger une clé de session secrète au début d'une communication HTTPS (TLS) ?",
+        "options": {
+          "a": "Chiffrement symétrique (AES)",
+          "b": "Chiffrement asymétrique (RSA ou ECC)",
+          "c": "Fonction de hachage (SHA-256)",
+          "d": "Chiffre de Vigenère"
+        },
+        "correctAnswer": "b",
+        "explanation": "L'asymétrique (ou Diffie-Hellman) est utilisé pour établir de manière sécurisée la clé symétrique qui chiffrera ensuite les données (chiffrement hybride)."
+      },
+      {
+        "id": "q29",
+        "question": "Laquelle de ces affirmations est vraie concernant le chiffrement asymétrique par rapport au symétrique ?",
+        "options": {
+          "a": "Il est beaucoup plus rapide.",
+          "b": "Il utilise la même clé pour chiffrer et déchiffrer.",
+          "c": "Il résout le problème de la distribution sécurisée des clés.",
+          "d": "Il n'est utilisé que pour le hachage."
+        },
+        "correctAnswer": "c",
+        "explanation": "L'avantage majeur de l'asymétrique est de simplifier l'échange de clés, car seule la clé publique doit être partagée."
+      },
+      {
+        "id": "q30",
+        "question": "Quel est l'objectif principal de l'étape 'MixColumns' dans l'algorithme AES ?",
+        "options": {
+          "a": "Introduire la non-linéarité via la S-Box.",
+          "b": "Ajouter la clé de round.",
+          "c": "Assurer une diffusion rapide des bits dans l'état (matrice).",
+          "d": "Permuter les octets entre les lignes."
+        },
+        "correctAnswer": "c",
+        "explanation": "MixColumns mélange les octets au sein de chaque colonne, contribuant significativement à la diffusion."
+      },
+      {
+        "id": "q31",
+        "question": "Si on utilise le padding PKCS#7 sur un bloc de 8 octets et que les données sont [AA BB CC DD EE FF 00], quel sera le bloc paddé ?",
+        "options": {
+          "a": "[AA BB CC DD EE FF 00 01]",
+          "b": "[AA BB CC DD EE FF 00 00]",
+          "c": "[AA BB CC DD EE FF 00 07]",
+          "d": "[AA BB CC DD EE FF 00 01 01 01 01 01 01 01]"
+        },
+        "correctAnswer": "a",
+        "explanation": "Il manque 1 octet pour compléter le bloc de 8. PKCS#7 ajoute N octets de valeur N. Ici N=1, donc on ajoute un octet de valeur 0x01."
+      },
+      {
+        "id": "q32",
+        "question": "Quelle attaque exploite les fuites d'information via le temps d'exécution ou la consommation électrique d'un appareil cryptographique ?",
+        "options": {
+          "a": "Attaque par texte chiffré choisi (CCA)",
+          "b": "Attaque par canal auxiliaire (Side-Channel Attack)",
+          "c": "Attaque par rejeu (Replay Attack)",
+          "d": "Attaque par dictionnaire"
+        },
+        "correctAnswer": "b",
+        "explanation": "Les attaques par canal auxiliaire n'attaquent pas l'algorithme lui-même mais son implémentation physique."
+      },
+       {
+        "id": "q33",
+        "question": "Quel mécanisme cryptographique fournit la non-répudiation ?",
+        "options": {
+          "a": "Chiffrement symétrique (AES)",
+          "b": "Fonction de Hachage (SHA-256)",
+          "c": "Code d'Authentification de Message (HMAC)",
+          "d": "Signature Numérique (RSA, ECDSA)"
+        },
+        "correctAnswer": "d",
+        "explanation": "Les signatures numériques, utilisant la clé privée du signataire, empêchent celui-ci de nier avoir signé le message."
+      },
+      {
+        "id": "q34",
+        "question": "Quel chiffrement historique était utilisé par les Spartiates avec un bâton d'un diamètre spécifique ?",
+        "options": {
+          "a": "Chiffre de César",
+          "b": "Scytale",
+          "c": "Chiffre de Vigenère",
+          "d": "Machine Enigma"
+        },
+        "correctAnswer": "b",
+        "explanation": "La Scytale est un chiffrement par transposition basé sur l'enroulement d'une bande autour d'un bâton."
+      }
+    ]
+  }

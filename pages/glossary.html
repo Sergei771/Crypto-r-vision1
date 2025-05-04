@@ -1,0 +1,88 @@
+<section id="glossaire" class="content-section">
+    <h2>Glossaire Cryptographique</h2>
+    <p>Définitions des termes techniques importants rencontrés sur le site.</p>
+
+    <div id="glossary-list">
+        <div class="glossary-entry card">
+            <h3>Algorithme Asymétrique (ou à Clé Publique)</h3>
+            <p>Système de chiffrement utilisant une paire de clés : une clé publique (pour chiffrer ou vérifier une signature) et une clé privée (pour déchiffrer ou signer). Exemples : RSA, ECC.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Algorithme Symétrique (ou à Clé Secrète)</h3>
+            <p>Système de chiffrement utilisant la même clé secrète pour le chiffrement et le déchiffrement. Exemples : AES, DES, ChaCha20.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Authentification</h3>
+            <p>Processus de vérification de l'identité déclarée d'une entité (utilisateur, serveur, etc.). En cryptographie, souvent réalisée via signatures numériques ou MACs.</p>
+        </div>
+         <div class="glossary-entry card">
+            <h3>Chiffrement par Bloc</h3>
+            <p>Algorithme symétrique qui opère sur des blocs de données de taille fixe (ex: 128 bits pour AES). Nécessite un mode d'opération pour traiter des données plus longues.</p>
+        </div>
+         <div class="glossary-entry card">
+            <h3>Chiffrement par Flux</h3>
+            <p>Algorithme symétrique qui chiffre les données bit par bit ou octet par octet (ex: ChaCha20, RC4). Souvent plus rapide que les chiffrements par bloc mais nécessite une gestion prudente des nonces/clés.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Confidentialité</h3>
+            <p>Propriété assurant que l'information n'est accessible qu'aux entités autorisées. Principal objectif du chiffrement.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Cryptanalyse</h3>
+            <p>Science de l'analyse et du "cassage" des systèmes cryptographiques pour en extraire l'information secrète sans connaître la clé.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Cryptographie</h3>
+            <p>Science de la sécurisation des communications en présence d'adversaires. Inclut le chiffrement, les signatures, le hachage, etc.</p>
+        </div>
+         <div class="glossary-entry card">
+            <h3>Fonction de Hachage Cryptographique</h3>
+            <p>Algorithme qui prend une entrée de taille arbitraire et produit une sortie (empreinte ou hash) de taille fixe, de manière déterministe. Doit être résistante aux collisions et aux préimages. Utilisée pour l'intégrité, le stockage de mots de passe. Exemples : SHA-256, SHA-3, BLAKE2.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Intégrité</h3>
+            <p>Propriété assurant que les données n'ont pas été altérées ou modifiées de manière non autorisée pendant leur stockage ou transmission. Assurée par les fonctions de hachage, les MACs, ou les signatures numériques.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Kerckhoffs (Principe de)</h3>
+            <p>Principe fondamental stipulant que la sécurité d'un système cryptographique doit reposer sur le secret de la clé, et non sur celui de l'algorithme.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>MAC (Message Authentication Code)</h3>
+            <p>Code de petite taille généré à partir d'un message et d'une clé secrète partagée. Permet de vérifier à la fois l'intégrité des données et l'authenticité de leur origine (car seule une entité connaissant la clé secrète peut générer le MAC correct). Exemple : HMAC-SHA256.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Mode d'Opération</h3>
+            <p>Technique définissant comment utiliser un chiffrement par bloc pour traiter des séquences de blocs. Exemples : ECB, CBC, CTR, GCM.</p>
+        </div>
+         <div class="glossary-entry card">
+            <h3>Nonce (Number used once)</h3>
+            <p>Nombre aléatoire ou pseudo-aléatoire utilisé une seule fois dans un protocole cryptographique. Crucial pour la sécurité de nombreux systèmes, notamment les chiffrements par flux et certains modes comme CTR ou GCM, pour éviter la réutilisation de la même clé/IV.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Padding (Bourrage)</h3>
+            <p>Ajout de données supplémentaires à un message avant chiffrement, généralement pour s'assurer que sa taille est un multiple de la taille du bloc requise par l'algorithme. Doit être non ambigu et réversible. Exemple : PKCS#7.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>PKI (Public Key Infrastructure / ICP : Infrastructure à Clés Publiques)</h3>
+            <p>Ensemble de matériel, logiciels, politiques et procédures nécessaires pour créer, gérer, distribuer, utiliser, stocker et révoquer des certificats numériques liant des clés publiques à des identités.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Sel (Salt)</h3>
+            <p>Donnée aléatoire unique ajoutée à une entrée (typiquement un mot de passe) avant de la hacher. Stocké avec le hash, il empêche les attaques par tables précalculées (comme les rainbow tables).</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Signature Numérique</h3>
+            <p>Mécanisme cryptographique utilisant la clé privée du signataire pour générer une preuve d'authenticité et d'intégrité d'un message ou document. Vérifiable par quiconque possède la clé publique correspondante.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Stéganographie</h3>
+            <p>Technique consistant à cacher l'existence même d'un message en le dissimulant dans un autre support (image, son...). Différent du chiffrement qui rend le message illisible mais pas invisible.</p>
+        </div>
+        <div class="glossary-entry card">
+            <h3>Vecteur d'Initialisation (IV)</h3>
+            <p>Bloc de bits aléatoire ou pseudo-aléatoire utilisé avec certains modes d'opération (comme CBC) pour assurer que le chiffrement du même texte clair donne un texte chiffré différent à chaque fois. Ne doit pas nécessairement être secret, mais doit être unique (souvent combiné avec la clé).</p>
+        </div>
+        <!-- Ajouter d'autres termes ici -->
+    </div>
+</section>

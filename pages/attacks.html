@@ -1,0 +1,113 @@
+<section id="attaques" class="content-section">
+    <h2>Attaques et Sécurité</h2>
+
+    <div class="card">
+        <h3>Attaques par force brute</h3>
+        <p>Consiste à essayer toutes les combinaisons possibles de clés ou de mots de passe.</p>
+        <h4>Principe</h4>
+        <p>Pour une clé de n bits, il faut tester 2<sup>n</sup> possibilités (en moyenne 2<sup>n-1</sup>).</p>
+        <h4>Temps d'exécution (estimé)</h4>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr><th>Taille Clé</th><th>Combinaisons</th><th>Temps (1 milliard essais/s)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>40 bits</td><td>~10<sup>12</sup></td><td>~18 minutes</td></tr>
+                    <tr><td>56 bits (DES)</td><td>~7x10<sup>16</sup></td><td>~2.3 ans</td></tr>
+                    <tr><td>128 bits (AES)</td><td>~3x10<sup>38</sup></td><td>> âge de l'univers</td></tr>
+                    <tr><td>256 bits (AES)</td><td>~10<sup>77</sup></td><td>>> âge de l'univers</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <h4>Contre-mesures</h4>
+        <ul>
+            <li>Utiliser des clés longues (≥ 128 bits).</li>
+            <li>Limiter le nombre de tentatives (verrouillage de compte).</li>
+            <li>Utiliser des fonctions de hachage lentes pour les mots de passe (bcrypt, Argon2).</li>
+            <li>Captcha.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Tables arc-en-ciel (Rainbow Tables)</h3>
+        <p>Technique de compromis temps-mémoire pour casser les hachages (surtout mots de passe).</p>
+        <h4>Principe</h4>
+        <p>Précalcule des chaînes de hachages (hash -> réduction -> hash -> ...) et ne stocke que les points de départ et d'arrivée pour économiser de l'espace par rapport à une table de lookup complète.</p>
+        <h4>Protection</h4>
+        <p>La meilleure défense est d'utiliser un <strong>sel (salt)</strong> unique pour chaque mot de passe avant de le hacher. Le sel rend les tables précalculées inutiles car le hash dépendra du sel spécifique.</p>
+        <div class="code-block">
+            <p>Hash sans sel: H(password)</p>
+            <p>Hash avec sel: H(password + salt)</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Attaque par Rejeu (Replay Attack)</h3>
+        <p>Consiste à intercepter une communication valide (ex: une requête d'authentification ou de transaction) et à la renvoyer ultérieurement pour usurper une identité ou répéter une action.</p>
+        <h4>Principe</h4>
+        <p>L'attaquant n'a pas besoin de déchiffrer le message, juste de le capturer et le réutiliser tel quel.</p>
+        <h4>Contre-mesures</h4>
+        <ul>
+            <li><strong>Nonces (Nombres utilisés une seule fois) :</strong> Inclure une valeur aléatoire unique dans chaque message. Le serveur vérifie que le nonce n'a pas déjà été utilisé.</li>
+            <li><strong>Timestamps (Horodatage) :</strong> Inclure l'heure d'envoi dans le message. Le serveur rejette les messages trop anciens. Nécessite une synchronisation d'horloge approximative.</li>
+            <li><strong>Numéros de Séquence :</strong> Utiliser des compteurs pour s'assurer que les messages sont traités dans le bon ordre et qu'aucun n'est réutilisé.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Attaque par Oracle de Padding (Padding Oracle Attack)</h3>
+        <p>Exploite les messages d'erreur renvoyés par un système lorsqu'un padding incorrect est détecté lors du déchiffrement (typiquement avec des modes comme CBC).</p>
+        <h4>Principe</h4>
+        <p>En modifiant systématiquement le dernier bloc du texte chiffré et en observant si le serveur renvoie une erreur de "padding incorrect" ou une autre erreur (ex: "déchiffrement échoué"), l'attaquant peut déduire octet par octet le contenu du bloc précédent en clair.</p>
+        <p>Même si le message d'erreur spécifique n'est pas renvoyé, des différences de temps de réponse (timing attack) peuvent suffire.</p>
+        <h4>Impact</h4>
+        <p>Peut permettre à un attaquant de déchiffrer complètement des messages sans connaître la clé, en ayant seulement la capacité d'envoyer des messages modifiés au système de déchiffrement et d'observer sa réaction.</p>
+        <h4>Contre-mesures</h4>
+        <ul>
+            <li><strong>Utiliser des modes AEAD (Authenticated Encryption with Associated Data) comme GCM ou ChaCha20-Poly1305 :</strong> Ces modes vérifient l'intégrité *avant* le déchiffrement. Si l'intégrité échoue, le déchiffrement n'a même pas lieu et aucune information sur le padding n'est révélée.</li>
+            <li><strong>Traitement uniforme des erreurs :</strong> S'assurer que le serveur prend le même temps et renvoie le même type de message d'erreur générique, que l'erreur vienne du padding ou d'autre chose. Difficile à implémenter correctement.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Attaque par Extension de Longueur (Length Extension Attack)</h3>
+        <p>Vulnérabilité spécifique aux fonctions de hachage basées sur la construction Merkle–Damgård (comme MD5, SHA-1, SHA-2).</p>
+        <h4>Principe</h4>
+        <p>Si un attaquant connaît H(secret || message1) et la longueur du 'secret', il peut calculer H(secret || message1 || padding || message2) pour un 'message2' de son choix, <strong>sans connaître le 'secret' lui-même</strong>. Ceci est possible car l'état interne final du hachage de (secret || message1) peut être utilisé comme état initial pour hacher des données supplémentaires.</p>
+        <h4>Impact</h4>
+        <p>Souvent problématique dans les systèmes d'authentification basés sur des MACs construits naïvement comme H(secret || message). Un attaquant pourrait ajouter des commandes à un message signé.</p>
+        <h4>Contre-mesures</h4>
+        <ul>
+            <li><strong>Utiliser HMAC :</strong> HMAC (Hash-based Message Authentication Code) est spécifiquement conçu pour éviter cette attaque en utilisant le secret à deux étapes du processus de hachage (HMAC-SHA256, etc.).</li>
+            <li><strong>Utiliser SHA-3 / Keccak :</strong> La construction en éponge de SHA-3 n'est pas vulnérable à cette attaque.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>Cryptanalyse et types d'attaques</h3>
+        <div class="grid grid-cols-2 gap-4">
+             <div class="sub-card">
+                 <h4>Analyse fréquentielle</h4>
+                 <p>Exploite la fréquence des lettres dans une langue. Efficace contre les substitutions simples (César).</p>
+             </div>
+             <div class="sub-card">
+                 <h4>Attaque de l'homme du milieu (MitM)</h4>
+                 <p>L'attaquant s'interpose entre deux communicants et relaie/modifie les messages. Contré par l'authentification (certificats).</p>
+             </div>
+             <div class="sub-card">
+                 <h4>Attaque par canal auxiliaire (Side-channel)</h4>
+                 <p>Exploite les fuites d'information de l'implémentation physique (temps d'exécution, consommation électrique, son, etc.).</p>
+             </div>
+             <div class="sub-card">
+                 <h4>Attaques basées sur le texte</h4>
+                 <ul>
+                    <li><strong>Texte chiffré seul (Ciphertext-Only Attack - COA)</strong>: L'attaquant n'a que le(s) chiffré(s). C'est le scénario le plus difficile pour l'attaquant. L'analyse fréquentielle contre César est un exemple.</li>
+                    <li><strong>Texte clair connu (Known Plaintext Attack - KPA)</strong>: L'attaquant possède des paires (clair, chiffré). Utile si l'attaquant peut deviner une partie du clair (ex: en-têtes HTTP, signatures de fichiers). Casser Enigma fut facilité par des KPA (ex: messages météo prévisibles). Briser Vigenère avec la longueur de clé connue et un KPA devient une série d'analyses fréquentielles.</li>
+                    <li><strong>Texte clair choisi (Chosen Plaintext Attack - CPA)</strong>: L'attaquant peut obtenir le chiffrement de messages clairs de son choix. Permet de cibler des faiblesses spécifiques de l'algorithme en injectant des motifs particuliers. C'est un modèle d'attaque réaliste dans beaucoup de protocoles web où l'attaquant peut influencer ce qui est chiffré.</li>
+                    <li><strong>Texte chiffré choisi (Chosen Ciphertext Attack - CCA/CCA2)</strong>: L'attaquant peut obtenir le déchiffrement de messages chiffrés de son choix (sauf le message cible lui-même). C'est le modèle le plus puissant pour l'attaquant. Les attaques par oracle de padding sont un exemple de CCA. Les chiffrements modernes visent la sécurité CCA (CCA2).</li>
+                 </ul>
+             </div>
+         </div>
+    </div>
+</section> 
