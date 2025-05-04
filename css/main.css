@@ -19,6 +19,12 @@ body {
     overflow-x: hidden;
 }
 
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Prevent unwanted space below image */
+}
+
 main {
     flex-grow: 1;
     width: 100%;
@@ -795,33 +801,91 @@ dd {
     margin-bottom: 1.5rem;
 }
 
-#quiz-options label {
+/* New styles for the wrapper div containing input and label */
+.quiz-option-wrapper {
     display: block;
-    background-color: var(--background-secondary); /* Correct variable */
-    padding: 0.8rem 1.2rem;
+    position: relative; /* Needed for absolute positioning of pseudo-elements */
     margin-bottom: 0.8rem;
-    border: 1px solid var(--border-color); /* Correct variable */
+    border: 1px solid var(--border-color);
     border-radius: 6px;
-    cursor: pointer;
+    background-color: var(--background-secondary);
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
-    font-weight: normal;
-    color: var(--text-primary); /* Correct variable */
 }
 
-#quiz-options input[type="radio"] {
-    margin-right: 0.8rem;
-    accent-color: var(--accent-color); /* Correct variable */
-    width: auto;
-    margin-bottom: 0;
+.quiz-option-wrapper label {
+    display: block; /* Label takes full width */
+    padding: 0.8rem 1.2rem;
+    padding-left: 2.5rem; /* Space for custom radio */
+    cursor: pointer;
+    color: var(--text-primary);
+    font-weight: normal; /* Reset font weight */
 }
 
-#quiz-options label:hover {
-    background-color: var(--background-tertiary); /* Correct variable */
-    border-color: var(--border-color-strong); /* Correct variable */
+/* Style for the custom radio button (empty circle) */
+.quiz-option-wrapper label::before {
+    content: '';
+    position: absolute;
+    left: 0.8rem; /* Position inside the padding */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color-strong);
+    border-radius: 50%;
+    background-color: var(--background-primary);
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-#quiz-options input[type="radio"]:checked + span {
-    font-weight: 600;
+/* Hide the actual radio input */
+.quiz-option-wrapper input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Enhanced Hover effect on the wrapper */
+.quiz-option-wrapper:hover {
+    background-color: var(--background-tertiary); /* Keep or slightly adjust */
+    border-color: var(--accent-color); /* Use accent color for border on hover */
+}
+
+/* Remove Hover effect on the custom radio itself (handled by wrapper hover) */
+/* .quiz-option-wrapper:hover label::before { ... remove this ... } */
+
+/* Clear focus style when radio receives focus */
+.quiz-option-wrapper input[type="radio"]:focus-visible + label::before {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    /* Optional: Inherit global focus box-shadow if defined */
+    /* box-shadow: 0 0 0 3px var(--background-primary), 0 0 0 5px var(--accent-color); */
+}
+
+/* Style for the checked state */
+.quiz-option-wrapper input[type="radio"]:checked + label {
+    /* Optional: Add specific style to label text when checked */
+    /* color: var(--accent-color); */
+}
+
+.quiz-option-wrapper input[type="radio"]:checked + label::before {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Inner dot for checked state */
+.quiz-option-wrapper input[type="radio"]:checked + label::after {
+    content: '';
+    position: absolute;
+    display: block;
+    left: calc(0.8rem + 5px); /* Position inside the ::before element */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--background-primary); /* Match background for contrast */
+    transition: background-color 0.2s ease-in-out;
 }
 
 #quiz-feedback {
@@ -846,15 +910,21 @@ dd {
 #quiz-navigation {
     margin-top: 2rem;
     display: flex;
-    justify-content: space-between;
+    gap: 1rem;
     align-items: center;
-    border-top: 1px solid var(--border-color); /* Add border */
-    padding-top: 1.5rem; /* Add padding */
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+#quiz-navigation > *:last-child {
+    margin-left: auto;
 }
 
 #quiz-progress {
     font-size: 0.9rem;
-    color: var(--text-secondary); /* Correct variable */
+    color: var(--text-secondary);
+    text-align: center;
+    flex-shrink: 0;
 }
 
 #quiz-results {
@@ -958,7 +1028,26 @@ dd {
     #quiz-container {
         padding: 1rem;
     }
-    #quiz-options label {
+    /* Adjust padding and positioning for custom radio on mobile */
+    .quiz-option-wrapper label {
         padding: 0.7rem 1rem;
+        padding-left: 2.3rem; /* Adjust padding for mobile */
+    }
+    .quiz-option-wrapper label::before {
+        left: 0.7rem; /* Adjust position for mobile */
+        width: 16px; /* Slightly smaller on mobile */
+        height: 16px;
+    }
+    .quiz-option-wrapper input[type="radio"]:checked + label::after {
+        left: calc(0.7rem + 4px); /* Adjust dot position */
+        width: 8px;
+        height: 8px;
+    }
+    #quiz-question {
+        font-size: 1.1rem; /* Slightly smaller font size */
+        margin-bottom: 1.2rem;
+    }
+    #quiz-score {
+        font-size: 1.5rem; /* Smaller score font size */
     }
 }

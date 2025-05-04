@@ -118,16 +118,25 @@ class QuizManager {
 
         let html = '';
         this.currentQuestions.forEach((q, index) => {
+            const questionId = q.id;
             const optionsArray = Object.entries(q.options);
             const shuffledOptions = this._shuffleArray(optionsArray);
+            const questionName = `quiz_q_${questionId}`; // Unique name for radio group
 
             html += `
-                <div class="quiz-question" data-question-id="${q.id}" style="display: none;">
+                <div class="quiz-question" data-question-id="${questionId}" style="display: none;">
                     <h4>${index + 1}. ${q.question}</h4>
                     <div class="quiz-options">
             `;
             shuffledOptions.forEach(([key, value]) => {
-                html += `<div class="quiz-option" data-value="${key}">${value}</div>`;
+                // Use label and input[type="radio"]
+                const optionId = `quiz_q_${questionId}_opt_${key}`;
+                html += `
+                    <div class="quiz-option-wrapper">
+                        <input type="radio" name="${questionName}" id="${optionId}" value="${key}">
+                        <label for="${optionId}">${value}</label>
+                    </div>
+                `;
             });
             html += `
                     </div>
@@ -199,20 +208,26 @@ class QuizManager {
         // A simple flag or removing/re-adding might be needed for robust re-initialization
         if (this.listenersAttached) return; // Simple flag approach
 
-        // Option selection
-        this.questionsArea.addEventListener('click', (event) => {
+        // Option selection using radio button CHANGE event
+        this.questionsArea.addEventListener('change', (event) => {
             if (this.isSubmitted) return;
-            const targetOption = event.target.closest('.quiz-option');
-            if (targetOption) {
-                const questionElement = targetOption.closest('.quiz-question');
+            const targetInput = event.target;
+
+            // Check if the changed element is a radio button within our options
+            if (targetInput.type === 'radio' && targetInput.name.startsWith('quiz_q_')) {
+                const questionElement = targetInput.closest('.quiz-question');
                 if (!questionElement) return;
                 const questionId = questionElement.dataset.questionId;
-                const selectedValue = targetOption.dataset.value;
+                const selectedValue = targetInput.value;
                 this.userAnswers[questionId] = selectedValue;
 
-                const options = questionElement.querySelectorAll('.quiz-option');
-                options.forEach(opt => opt.classList.remove('selected'));
-                targetOption.classList.add('selected');
+                // Optional: If visual feedback beyond the radio check is needed,
+                // you could add/remove a class on the parent '.quiz-option-wrapper'
+                // or the label.
+                // Example:
+                // const wrappers = questionElement.querySelectorAll('.quiz-option-wrapper');
+                // wrappers.forEach(w => w.classList.remove('selected'));
+                // targetInput.closest('.quiz-option-wrapper').classList.add('selected');
             }
         });
 
